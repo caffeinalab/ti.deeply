@@ -1,0 +1,6 @@
+tmp
+bin
+build
+.DS_Store
+.project
+android/build.properties
