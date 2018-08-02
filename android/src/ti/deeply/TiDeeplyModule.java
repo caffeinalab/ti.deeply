@@ -56,9 +56,12 @@ public class TiDeeplyModule extends KrollModule
 	public void parseBootIntent() {
 		try {
 			Intent intent = TiApplication.getAppRootOrCurrentActivity().getIntent();
-			String data = intent.getDataString();
-			String action = intent.getAction();
-			Bundle extras = intent.getExtras();
+			String data = intent.getStringExtra(INTENT_DATA);
+			String action = intent.getStringExtra(INTENT_ACTION);
+			Bundle extras = intent.getBundleExtra(INTENT_EXTRAS);
+			Log.d(LCAT, "got " + data);
+			Log.d(LCAT, "got " + action);
+			Log.d(LCAT, "got " + extras);
 
 			if (data != null) {
 				sendDeepLink(data, action, extras, true);
@@ -79,6 +82,10 @@ public class TiDeeplyModule extends KrollModule
 			return;
 		}
 
+		Log.d(LCAT, "putting in callback " + data);
+		Log.d(LCAT, "putting in callback " + action);
+		Log.d(LCAT, "putting in callback " + extras);
+		Log.d(LCAT, "putting in callback " + inBackground);
 		HashMap<String, Object> e = new HashMap<String, Object>();
 		e.put("data", data); // to parse on reverse on JS side
 		e.put("action", action);
@@ -89,6 +96,8 @@ public class TiDeeplyModule extends KrollModule
 	}
 
 	private static HashMap<String, Object> convertBundleToMap(Bundle bundle) {
+		if (bundle == null) return null;
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Iterator<String> keys = bundle.keySet().iterator();
 		while (keys.hasNext()) {
@@ -105,6 +114,8 @@ public class TiDeeplyModule extends KrollModule
 	@Kroll.method
 	public void setDeepLinkCallback(KrollFunction callback) {
 		deepLinkCallback = callback;
+
+		parseBootIntent();
 	}
 
 }
