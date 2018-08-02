@@ -23,9 +23,7 @@ import org.appcelerator.kroll.common.Log;
 import org.appcelerator.kroll.common.TiConfig;
 
 
-@Kroll.module(name="TiDeeply", id="ti.deeply", propertyAccessors = {
-	"callback"
-})
+@Kroll.module(name="TiDeeply", id="ti.deeply")
 public class TiDeeplyModule extends KrollModule
 {
 
