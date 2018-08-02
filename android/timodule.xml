@@ -9,9 +9,11 @@
 	<android xmlns:android="http://schemas.android.com/apk/res/android">
 		<manifest package="ti.deeply" android:versionCode="1" android:versionName="1.0" android:installLocation="internalOnly">
 			<application>
-				<activity android:name="DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="Theme.Transparent">
-					<!-- Put the intent filters for your url schemes here, or override this activity in you app manifest -->
+				<!-- Put the following activity definition in your tiapp.xml, with any intent filter you want to listen to -->
+				<!--
+				<activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@style/Theme.Transparent">
 				</activity>
+				-->
 			</application>
 		</manifest>
 	</android>
