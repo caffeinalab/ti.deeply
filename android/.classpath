@@ -7,5 +7,10 @@
 	<classpathentry kind="lib" path="/Users/andrea.jonus/Library/Application Support/Titanium/mobilesdk/osx/7.1.0.CAFFEINA-2/android/titanium.jar"/>
 	<classpathentry kind="lib" path="/Users/andrea.jonus/Library/Application Support/Titanium/mobilesdk/osx/7.1.0.CAFFEINA-2/android/kroll-common.jar"/>
 	<classpathentry kind="lib" path="/Users/andrea.jonus/Library/Application Support/Titanium/mobilesdk/osx/7.1.0.CAFFEINA-2/android/kroll-apt.jar"/>
+	<classpathentry kind="src" path=".apt_generated">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
