@@ -17,6 +17,7 @@ import org.appcelerator.kroll.annotations.Kroll;
 
 import org.appcelerator.titanium.TiApplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.appcelerator.kroll.common.Log;
@@ -55,7 +56,7 @@ public class TiDeeplyModule extends KrollModule
 	public void parseBootIntent() {
 		try {
 			Intent intent = TiApplication.getAppRootOrCurrentActivity().getIntent();
-			String data = intent.getData();
+			String data = intent.getDataString();
 			String action = intent.getAction();
 			Bundle extras = intent.getExtras();
 
@@ -74,7 +75,7 @@ public class TiDeeplyModule extends KrollModule
 
 	public void sendDeepLink(String data, String action, Bundle extras, Boolean inBackground) {
 		if (deepLinkCallback == null) {
-			Log.e(LCAT, "sendMessage invoked but no deepLinkCallback defined");
+			Log.e(LCAT, "sendDeepLink invoked but no deepLinkCallback defined");
 			return;
 		}
 
@@ -87,7 +88,7 @@ public class TiDeeplyModule extends KrollModule
 		deepLinkCallback.callAsync(getKrollObject(), e);
 	}
 
-	private static Map<String, Object> convertBundleToMap(Bundle bundle) {
+	private static HashMap<String, Object> convertBundleToMap(Bundle bundle) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Iterator<String> keys = bundle.keySet().iterator();
 		while (keys.hasNext()) {
@@ -95,6 +96,10 @@ public class TiDeeplyModule extends KrollModule
 			map.put(key, bundle.get(key));
 		}
 		return map;
+	}
+
+	public boolean hasDeepLinkCallback() {
+		return deepLinkCallback != null;
 	}
 
 	@Kroll.method

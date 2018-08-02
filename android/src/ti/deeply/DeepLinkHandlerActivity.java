@@ -7,8 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.appcelerator.titanium.TiApplication;
-
 import java.util.HashMap;
 
 import org.appcelerator.kroll.KrollRuntime;
@@ -35,8 +33,8 @@ public class DeepLinkHandlerActivity extends Activity {
 			launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 			launcherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			if (module.hasMessageCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
-				module.sendMessage(data, action, extras, true);
+			if (module.hasDeepLinkCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
+				module.sendDeepLink(data, action, extras, true);
 			} else {
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_DATA, data);
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_ACTION, action);
