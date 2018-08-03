@@ -38,7 +38,7 @@ public class TiDeeplyModule extends KrollModule
 
 	private static TiDeeplyModule module = null;
 
-	private KrollFunction deepLinkCallback = null;
+	private KrollFunction callback = null;
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
@@ -74,8 +74,8 @@ public class TiDeeplyModule extends KrollModule
 	}
 
 	public void sendDeepLink(String data, String action, Bundle extras) {
-		if (deepLinkCallback == null) {
-			Log.e(LCAT, "sendDeepLink invoked but no deepLinkCallback defined");
+		if (callback == null) {
+			Log.e(LCAT, "sendDeepLink invoked but no callback defined");
 			return;
 		}
 
@@ -84,7 +84,7 @@ public class TiDeeplyModule extends KrollModule
 		e.put("action", action);
 		e.put("extras", convertBundleToMap(extras));
 
-		deepLinkCallback.callAsync(getKrollObject(), e);
+		callback.callAsync(getKrollObject(), e);
 	}
 
 	private static HashMap<String, Object> convertBundleToMap(Bundle bundle) {
@@ -99,13 +99,13 @@ public class TiDeeplyModule extends KrollModule
 		return map;
 	}
 
-	public boolean hasDeepLinkCallback() {
-		return deepLinkCallback != null;
+	public boolean hasCallback() {
+		return callback != null;
 	}
 
 	@Kroll.method
-	public void setDeepLinkCallback(KrollFunction callback) {
-		deepLinkCallback = callback;
+	public void setCallback(KrollFunction fn) {
+		callback = fn;
 
 		parseBootIntent();
 	}

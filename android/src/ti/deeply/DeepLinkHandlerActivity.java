@@ -48,7 +48,7 @@ public class DeepLinkHandlerActivity extends Activity {
 			launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 			launcherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			if (module.hasDeepLinkCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
+			if (module.hasCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
 				module.sendDeepLink(data, action, extras);
 			} else {
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_DATA, data);
