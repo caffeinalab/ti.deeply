@@ -11,7 +11,7 @@
 			<application>
 				<!-- Put the following activity definition in your tiapp.xml, with any intent filter you want to listen to -->
 				<!--
-				<activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoDisplay">
+				<activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoDisplay" launchMode="singleTask">
 				</activity>
 				-->
 			</application>
