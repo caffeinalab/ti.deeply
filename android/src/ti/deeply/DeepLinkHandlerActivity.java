@@ -17,13 +17,29 @@ public class DeepLinkHandlerActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		try {
-			Log.d(LCAT, "started");
-			super.onCreate(savedInstanceState);
+		Log.d(LCAT, "started");
+		super.onCreate(savedInstanceState);
 
+		processIntent(getIntent());
+		finish();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Log.d(LCAT, "new intent");
+		processIntent(intent);
+	}
+
+	@Override
+	protected void onResume() {
+		Log.d(LCAT, "resumed");
+		super.onResume();
+	}
+
+	private void processIntent(Intent intent) {
+		try {
 			TiDeeplyModule module = TiDeeplyModule.getModule();
 			Context context = getApplicationContext();
-			Intent intent = getIntent();
 			String data = intent.getDataString();
 			String action = intent.getAction();
 			Bundle extras = intent.getExtras();
@@ -32,35 +48,19 @@ public class DeepLinkHandlerActivity extends Activity {
 			launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 			launcherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			Log.d(LCAT, "has callback? " + module.hasDeepLinkCallback());
-			Log.d(LCAT, "is available? " + (KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED));
 			if (module.hasDeepLinkCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
-				Log.d(LCAT, "sending " + data);
-				Log.d(LCAT, "sending " + action);
-				Log.d(LCAT, "sending " + extras);
-				module.sendDeepLink(data, action, extras, true);
+				module.sendDeepLink(data, action, extras);
 			} else {
-				Log.d(LCAT, "putting " + data);
-				Log.d(LCAT, "putting " + action);
-				Log.d(LCAT, "putting " + extras);
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_DATA, data);
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_ACTION, action);
 				launcherIntent.putExtra(TiDeeplyModule.INTENT_EXTRAS, extras);
 			}
 
-			Log.d(LCAT, "launching intent");
 			startActivity(launcherIntent);
 
 		} catch (Exception e) {
 			Log.e(LCAT, "onCreate " + e);
-		} finally {
-			finish();
 		}
-	}
-
-	@Override protected void onResume() {
-		Log.d(LCAT, "resumed");
-		super.onResume();
 	}
 
 }
