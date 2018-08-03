@@ -15,4 +15,4 @@ name: Ti.Deeply
 moduleid: ti.deeply
 guid: 7b8608cb-4877-4490-9c93-b6273a76059d
 platform: android
-minsdk: 7.1.0.CAFFEINA-2
+minsdk: 7.1.0

@@ -5,3 +5,4 @@ build
 .project
 android/build.properties
 .idea/
+dist/
