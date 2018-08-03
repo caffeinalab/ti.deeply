@@ -3,6 +3,12 @@ bin
 build
 .DS_Store
 .project
-android/build.properties
 .idea/
-dist/
+android/build.properties
+android/clean
+android/ant_clean
+android/.classpath
+android/.settings
+android/dist/
+android/launch-*
+android/java-sources.txt
