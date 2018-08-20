@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -40,20 +41,21 @@ public class DeepLinkHandlerActivity extends Activity {
 		try {
 			TiDeeplyModule module = TiDeeplyModule.getModule();
 			Context context = getApplicationContext();
-			String data = intent.getDataString();
+			Uri data = intent.getData();
 			String action = intent.getAction();
 			Bundle extras = intent.getExtras();
 
 			Intent launcherIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-			launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-			launcherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			if (module.hasCallback() && KrollRuntime.getInstance().getRuntimeState() != KrollRuntime.State.DISPOSED) {
 				module.sendDeepLink(data, action, extras);
 			} else {
-				launcherIntent.putExtra(TiDeeplyModule.INTENT_DATA, data);
-				launcherIntent.putExtra(TiDeeplyModule.INTENT_ACTION, action);
-				launcherIntent.putExtra(TiDeeplyModule.INTENT_EXTRAS, extras);
+				launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+				launcherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				launcherIntent.setData(data);
+				launcherIntent.setAction(action);
+				launcherIntent.putExtras(intent);
+				launcherIntent.putExtra(TiDeeplyModule.EXTRA_DEEPLY_FLAG, true);
 			}
 
 			startActivity(launcherIntent);

@@ -18,6 +18,7 @@ import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import org.appcelerator.kroll.common.Log;
@@ -32,9 +33,7 @@ public class TiDeeplyModule extends KrollModule
 	private static final String LCAT = "ti.deeply.TiDeeplyModule";
 	private static final boolean DBG = TiConfig.LOGD;
 
-	public static final String INTENT_DATA = "tideeply.data";
-	public static final String INTENT_ACTION = "tideeply.action";
-	public static final String INTENT_EXTRAS = "tideeply.extras";
+	public static final String EXTRA_DEEPLY_FLAG = "tideeply.isDeepLink";
 
 	private static TiDeeplyModule module = null;
 
@@ -56,31 +55,27 @@ public class TiDeeplyModule extends KrollModule
 	public void parseBootIntent() {
 		try {
 			Intent intent = TiApplication.getAppRootOrCurrentActivity().getIntent();
-			String data = intent.getStringExtra(INTENT_DATA);
-			String action = intent.getStringExtra(INTENT_ACTION);
-			Bundle extras = intent.getBundleExtra(INTENT_EXTRAS);
+			Boolean deeplyFlag = intent.getBooleanExtra(EXTRA_DEEPLY_FLAG, false);
 
-			if (data != null) {
-				sendDeepLink(data, action, extras);
-				intent.removeExtra(INTENT_DATA);
-				intent.removeExtra(INTENT_ACTION);
-				intent.removeExtra(INTENT_EXTRAS);
+			if (deeplyFlag == true) {
+				intent.removeExtra(EXTRA_DEEPLY_FLAG);
+				sendDeepLink(intent.getData(), intent.getAction(), intent.getExtras());
 			} else {
-				Log.d(LCAT, "Empty data in Intent");
+				Log.d(LCAT, "Not started by a deep link.");
 			}
 		} catch (Exception ex) {
 			Log.e(LCAT, "parseBootIntent" + ex);
 		}
 	}
 
-	public void sendDeepLink(String data, String action, Bundle extras) {
+	public void sendDeepLink(Uri data, String action, Bundle extras) {
 		if (callback == null) {
 			Log.e(LCAT, "sendDeepLink invoked but no callback defined");
 			return;
 		}
 
 		HashMap<String, Object> e = new HashMap<String, Object>();
-		e.put("data", data); // to parse on reverse on JS side
+		e.put("data", data.toString()); // to parse on reverse on JS side
 		e.put("action", action);
 		e.put("extras", convertBundleToMap(extras));
 
