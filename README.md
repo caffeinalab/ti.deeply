@@ -10,6 +10,8 @@
 - Add the content to the `modules` folder of your project;
 - Add `<module platform="android">ti.deeply</module>` under the `<modules>` tag of your `tiapp.xml` file.
 
+**Note**: version 1.0.0 is for Titanium SDK >= 7.1.0, version 0.9.0 is for Titanium SDK >= 6.3.0
+
 ## Usage
 
 Add the following activity to your `tiapp.xml` file, in the Android manifest part:
