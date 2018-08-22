@@ -1,3 +1,10 @@
+/**
+ * Ti.Deeply
+ * Copyright (c) 2018-present by Andrea Jonus.
+ * Licensed under the terms of the MIT License
+ * Please see the LICENSE included with this distribution for details.
+ */
+
 package ti.deeply;
 
 import android.app.Activity;
@@ -12,12 +19,14 @@ import java.util.HashMap;
 
 import org.appcelerator.kroll.KrollRuntime;
 
-public class DeepLinkHandlerActivity extends Activity {
+public class DeepLinkHandlerActivity extends Activity
+{
 
 	private static String LCAT = "ti.deeply.DeepLinkHandlerActivity";
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		Log.d(LCAT, "started");
 		super.onCreate(savedInstanceState);
 
@@ -26,18 +35,21 @@ public class DeepLinkHandlerActivity extends Activity {
 	}
 
 	@Override
-	protected void onNewIntent(Intent intent) {
+	protected void onNewIntent(Intent intent)
+	{
 		Log.d(LCAT, "new intent");
 		processIntent(intent);
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		Log.d(LCAT, "resumed");
 		super.onResume();
 	}
 
-	private void processIntent(Intent intent) {
+	private void processIntent(Intent intent)
+	{
 		try {
 			TiDeeplyModule module = TiDeeplyModule.getModule();
 			Context context = getApplicationContext();
@@ -64,5 +76,4 @@ public class DeepLinkHandlerActivity extends Activity {
 			Log.e(LCAT, "onCreate " + e);
 		}
 	}
-
 }
