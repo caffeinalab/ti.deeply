@@ -3,8 +3,10 @@
 ### Simple deep link handling in your Titanium Android app
 
 ## Install
+
 ### Automatically:
 // COMING SOON
+
 ### Manually:
 - Get the module from the [releases page](https://github.com/caffeinalab/ti.deeply/releases);
 - Add the content to the `modules` folder of your project;
@@ -15,7 +17,8 @@
 ## Usage
 
 Add the following activity to your `tiapp.xml` file, in the Android manifest part:
-```
+
+```xml
 <activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoDisplay" launchMode="singleTask">
 	<intent-filter>
 		<action android:name="android.intent.action.VIEW"/>
@@ -28,7 +31,8 @@ Add the following activity to your `tiapp.xml` file, in the Android manifest par
 ```
 
 Require the module wherever you see fit (generally, in the `alloy.js` or `index.js` of your app) and set the callback function:
-```
+
+```js
 var Deeply = require('ti.deeply');
 
 Deeply.setCallback(function(e) {
@@ -40,13 +44,15 @@ Deeply.setCallback(function(e) {
 ```
 
 Test it from a terminal:
-```
+
+```bash
 adb shell am start -a android.intent.action.VIEW -d "examplescheme://foo" your.app.id
 ```
 
 ## Notes
 
-### **`android:launchMode`:**
+### `android:launchMode`
+
 The tag `android:launchMode="singleTask"` is necessary for the module to work correctly when the app is opened from a closed state by a deep link.
 If you want more informations on why this is the case, see:
 - https://developer.android.com/guide/topics/manifest/activity-element#lmode
@@ -54,3 +60,7 @@ If you want more informations on why this is the case, see:
 - https://medium.com/@ankit.sinhal/understand-activity-launch-mode-with-examples-721e85b6421e
 
 Until Titanium 7.3.0, the tag `android:launchMode` was automatically removed at build time. This means that, if you're using a Titanium version lower than 7.3.0, your app will not open the same deep link again if it was used to start the app.
+
+## License
+
+MIT
