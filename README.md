@@ -19,7 +19,7 @@
 Add the following activity to your `tiapp.xml` file, in the Android manifest part:
 
 ```xml
-<activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoDisplay" launchMode="singleTask">
+<activity android:name="ti.deeply.DeepLinkHandlerActivity" android:noHistory="true" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoDisplay" android:launchMode="singleTask">
 	<intent-filter>
 		<action android:name="android.intent.action.VIEW"/>
 		<category android:name="android.intent.category.DEFAULT"/>
